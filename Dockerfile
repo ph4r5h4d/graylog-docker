@@ -13,6 +13,7 @@ RUN \
   apt-get update  > /dev/null && \
   apt-get install --assume-yes \
     ca-certificates \
+    apt-utils \
     curl > /dev/null
 
 RUN \
