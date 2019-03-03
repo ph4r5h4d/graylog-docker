@@ -30,33 +30,41 @@ fi
 #              fieldRef:
 #                fieldPath: metadata.name
 # First stateful member is having pod name ended with -0, so 
-# if [[ ! -z "${POD_NAME}" ]]
-# then
-#  if echo "${POD_NAME}" | grep "\\-0$" >/dev/null
-#  then
-#    export GRAYLOG_IS_MASTER="true"
-#  else
-#    export GRAYLOG_IS_MASTER="false"
-#  fi
-# fi
- export GRAYLOG_IS_MASTER="false"
+if [[ ! -z "${POD_NAME}" ]]
+then
+ if echo "${POD_NAME}" | grep "\\-0$" >/dev/null
+ then
+   export GRAYLOG_IS_MASTER="true"
+ else
+   export GRAYLOG_IS_MASTER="false"
+ fi
+fi
+
+setup() {
+  # Create data directories
+  for d in journal log plugin config contentpacks
+  do
+    dir=${GRAYLOG_HOME}/data/${d}
+    [[ -d "${dir}" ]] || mkdir -p "${dir}"
+    
+  done
+}
 
 graylog() {
-ls -l /usr/share/graylog
-ls -l /usr/share/graylog/data
-ls -l /usr/share/graylog/data/config
+
   "${JAVA_HOME}/bin/java" \
     ${GRAYLOG_SERVER_JAVA_OPTS} \
     -jar \
-    -Dlog4j.configurationFile="/usr/share/graylog/data/config/log4j2.xml" \
-    -Djava.library.path="/usr/share/graylog/lib/sigar/" \
+    -Dlog4j.configurationFile="${GRAYLOG_HOME}/data/config/log4j2.xml" \
+    -Djava.library.path="${GRAYLOG_HOME}/lib/sigar/" \
     -Dgraylog2.installation_source=docker \
-    "/usr/share/graylog/graylog.jar" \
+    "${GRAYLOG_HOME}/graylog.jar" \
     server \
-    -f "/usr/share/graylog/data/config/graylog.conf"
+    -f "${GRAYLOG_HOME}/data/config/graylog.conf"
 }
 
 run() {
+  setup
   graylog
 }
 
