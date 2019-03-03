@@ -123,7 +123,7 @@ RUN \
 COPY docker-entrypoint.sh /
 
 RUN usermod -a -G root graylog
-RUN chmod 755 ${GRAYLOG_HOME} ${GRAYLOG_HOME}/data ${GRAYLOG_HOME}/data/journal ${GRAYLOG_HOME}/data/log ${GRAYLOG_HOME}/data/plugin ${GRAYLOG_HOME}/data/config ${GRAYLOG_HOME}/data/contentpacks
+RUN chmod 777 ${GRAYLOG_HOME} ${GRAYLOG_HOME}/data ${GRAYLOG_HOME}/data/journal ${GRAYLOG_HOME}/data/log ${GRAYLOG_HOME}/data/plugin ${GRAYLOG_HOME}/data/config ${GRAYLOG_HOME}/data/contentpacks
 RUN chown -R ${GRAYLOG_USER}:${GRAYLOG_GROUP} ${GRAYLOG_HOME}
 
 EXPOSE 9000
