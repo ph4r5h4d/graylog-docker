@@ -121,7 +121,7 @@ RUN \
 
 COPY docker-entrypoint.sh /
 
-#RUN chmod -R 755 ${GRAYLOG_HOME}/data
+RUN chmod -R 755 ${GRAYLOG_HOME}/data
 
 EXPOSE 9000
 USER ${GRAYLOG_USER}
