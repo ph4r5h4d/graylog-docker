@@ -123,16 +123,8 @@ COPY health_check.sh /
 
 EXPOSE 9000
 USER ${GRAYLOG_USER}
-VOLUME ${GRAYLOG_HOME}/data
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["graylog"]
-
-# add healthcheck
-HEALTHCHECK \
-  --interval=10s \
-  --timeout=2s \
-  --retries=12 \
-  CMD /health_check.sh
 
 # -------------------------------------------------------------------------------------------------
 
