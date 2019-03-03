@@ -40,15 +40,6 @@ then
  fi
 fi
 
-setup() {
-  # Create data directories
-  for d in journal log plugin config contentpacks
-  do
-    dir=${GRAYLOG_HOME}/data/${d}
-    [[ -d "${dir}" ]] || mkdir -p "${dir}"
-    
-  done
-}
 
 graylog() {
 
@@ -63,9 +54,4 @@ graylog() {
     -f "${GRAYLOG_HOME}/data/config/graylog.conf"
 }
 
-run() {
-  setup
-  graylog
-}
-
-run
+graylog
