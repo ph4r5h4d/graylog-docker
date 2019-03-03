@@ -54,4 +54,8 @@ graylog() {
     -f "${GRAYLOG_HOME}/data/config/graylog.conf"
 }
 
-graylog
+run() {
+  graylog
+}
+
+run
