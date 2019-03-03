@@ -117,10 +117,11 @@ RUN \
     /var/log/* \
     /usr/share/X11 \
     /usr/share/doc/* 2> /dev/null
-RUN usermod -a -G root graylog
+
 
 COPY docker-entrypoint.sh /
 
+#RUN chmod -R 755 ${GRAYLOG_HOME}/data
 
 EXPOSE 9000
 USER ${GRAYLOG_USER}

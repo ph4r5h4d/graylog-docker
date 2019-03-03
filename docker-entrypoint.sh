@@ -42,7 +42,9 @@ fi
 
 
 graylog() {
-
+ls -l ${GRAYLOG_HOME}
+ls -l ${GRAYLOG_HOME}/data
+ls -l ${GRAYLOG_HOME}/data/config
   "${JAVA_HOME}/bin/java" \
     ${GRAYLOG_SERVER_JAVA_OPTS} \
     -jar \
