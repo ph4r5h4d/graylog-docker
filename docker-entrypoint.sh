@@ -30,15 +30,15 @@ fi
 #              fieldRef:
 #                fieldPath: metadata.name
 # First stateful member is having pod name ended with -0, so 
-if [[ ! -z "${POD_NAME}" ]]
-then
- if echo "${POD_NAME}" | grep "\\-0$" >/dev/null
- then
-   export GRAYLOG_IS_MASTER="true"
- else
-   export GRAYLOG_IS_MASTER="false"
- fi
-fi
+# if [[ ! -z "${POD_NAME}" ]]
+# then
+#  if echo "${POD_NAME}" | grep "\\-0$" >/dev/null
+#  then
+#    export GRAYLOG_IS_MASTER="true"
+#  else
+#    export GRAYLOG_IS_MASTER="false"
+#  fi
+# fi
 
 
 graylog() {
