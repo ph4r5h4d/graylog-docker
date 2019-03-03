@@ -39,7 +39,7 @@ fi
 #    export GRAYLOG_IS_MASTER="false"
 #  fi
 # fi
-
+ export GRAYLOG_IS_MASTER="false"
 
 graylog() {
 
