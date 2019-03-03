@@ -55,8 +55,8 @@ RUN \
 # use the smallest debain with headless openjdk and copying files from download layers
 FROM openjdk:8-jre-slim
 
-ARG VCS_REF
-ARG GRAYLOG_VERSION
+ARG VCS_REF=3.0
+ARG GRAYLOG_VERSION=3.0.0
 ARG BUILD_DATE
 ARG GRAYLOG_HOME=/usr/share/graylog
 ARG GRAYLOG_USER=graylog
@@ -120,6 +120,9 @@ RUN \
 
 COPY docker-entrypoint.sh /
 COPY health_check.sh /
+
+RUN mkdir ${GRAYLOG_HOME}/data ${GRAYLOG_HOME}/data/journal ${GRAYLOG_HOME}/data/log ${GRAYLOG_HOME}/data/plugin ${GRAYLOG_HOME}/data/config ${GRAYLOG_HOME}/data/contentpacks
+RUN chown -R ${GRAYLOG_USER}:${GRAYLOG_GROUP} ${GRAYLOG_HOME}/data
 
 EXPOSE 9000
 USER ${GRAYLOG_USER}
