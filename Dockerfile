@@ -3,8 +3,8 @@
 # layer for download and verifying
 FROM debian:stretch-slim as graylog-downloader
 
-ARG VCS_REF
-ARG GRAYLOG_VERSION
+ARG VCS_REF=3.0
+ARG GRAYLOG_VERSION=3.0.0
 
 WORKDIR /tmp
 
@@ -55,8 +55,8 @@ RUN \
 # use the smallest debain with headless openjdk and copying files from download layers
 FROM openjdk:8-jre-slim
 
-ARG VCS_REF
-ARG GRAYLOG_VERSION
+ARG VCS_REF=3.0
+ARG GRAYLOG_VERSION=3.0.0
 ARG BUILD_DATE
 ARG GRAYLOG_HOME=/usr/share/graylog
 ARG GRAYLOG_USER=graylog
