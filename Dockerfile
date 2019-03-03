@@ -3,8 +3,8 @@
 # layer for download and verifying
 FROM debian:stretch-slim as graylog-downloader
 
-ARG VCS_REF
-ARG GRAYLOG_VERSION
+ARG VCS_REF=3.0
+ARG GRAYLOG_VERSION=3.0.0
 
 WORKDIR /tmp
 
