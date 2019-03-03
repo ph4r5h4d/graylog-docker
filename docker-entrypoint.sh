@@ -42,7 +42,9 @@ fi
  export GRAYLOG_IS_MASTER="false"
 
 graylog() {
-
+ls -l /usr/share/graylog
+ls -l /usr/share/graylog/data
+ls -l /usr/share/graylog/data/config
   "${JAVA_HOME}/bin/java" \
     ${GRAYLOG_SERVER_JAVA_OPTS} \
     -jar \
