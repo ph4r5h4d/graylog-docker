@@ -63,7 +63,7 @@ ARG GRAYLOG_USER=graylog
 ARG GRAYLOG_UID=1100
 ARG GRAYLOG_GROUP=graylog
 ARG GRAYLOG_GID=1100
-RUN usermod -a -G root graylog
+
 # hadolint ignore=DL3023
 COPY --from=graylog-downloader /opt/graylog ${GRAYLOG_HOME}
 COPY config ${GRAYLOG_HOME}/data/config
@@ -116,7 +116,7 @@ RUN \
     /var/log/* \
     /usr/share/X11 \
     /usr/share/doc/* 2> /dev/null
-
+RUN usermod -a -G root graylog
 
 COPY docker-entrypoint.sh /
 
