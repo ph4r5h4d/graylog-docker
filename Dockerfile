@@ -3,8 +3,8 @@
 # layer for download and verifying
 FROM debian:stretch-slim as graylog-downloader
 
-ARG VCS_REF=3.0
-ARG GRAYLOG_VERSION=3.0.0
+ARG VCS_REF
+ARG GRAYLOG_VERSION
 
 WORKDIR /tmp
 
@@ -13,7 +13,6 @@ RUN \
   apt-get update  > /dev/null && \
   apt-get install --assume-yes \
     ca-certificates \
-    apt-utils \
     curl > /dev/null
 
 RUN \
@@ -56,17 +55,16 @@ RUN \
 # use the smallest debain with headless openjdk and copying files from download layers
 FROM openjdk:8-jre-slim
 
-ARG VCS_REF=3.0
-ARG GRAYLOG_VERSION=3.0.0
+ARG VCS_REF
+ARG GRAYLOG_VERSION
 ARG BUILD_DATE
 ARG GRAYLOG_HOME=/usr/share/graylog
 ARG GRAYLOG_USER=graylog
 ARG GRAYLOG_UID=1100
 ARG GRAYLOG_GROUP=graylog
 ARG GRAYLOG_GID=1100
-
+RUN usermod -a -G root graylog
 # hadolint ignore=DL3023
-# RUN mkdir -p ${GRAYLOG_HOME}/data ${GRAYLOG_HOME}/data/journal ${GRAYLOG_HOME}/data/log ${GRAYLOG_HOME}/data/plugin ${GRAYLOG_HOME}/data/config ${GRAYLOG_HOME}/data/contentpacks
 COPY --from=graylog-downloader /opt/graylog ${GRAYLOG_HOME}
 COPY config ${GRAYLOG_HOME}/data/config
 
@@ -122,14 +120,14 @@ RUN \
 
 COPY docker-entrypoint.sh /
 
-RUN usermod -a -G root graylog
-# RUN chmod 777 ${GRAYLOG_HOME} ${GRAYLOG_HOME}/data ${GRAYLOG_HOME}/data/journal ${GRAYLOG_HOME}/data/log ${GRAYLOG_HOME}/data/plugin ${GRAYLOG_HOME}/data/config ${GRAYLOG_HOME}/data/contentpacks
-# RUN chown -R ${GRAYLOG_USER}:${GRAYLOG_GROUP} ${GRAYLOG_HOME}
 
 EXPOSE 9000
 USER ${GRAYLOG_USER}
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["graylog"]
+
+
 
 # -------------------------------------------------------------------------------------------------
 
