@@ -66,6 +66,7 @@ ARG GRAYLOG_GROUP=graylog
 ARG GRAYLOG_GID=1100
 
 # hadolint ignore=DL3023
+RUN mkdir -p ${GRAYLOG_HOME}/data ${GRAYLOG_HOME}/data/journal ${GRAYLOG_HOME}/data/log ${GRAYLOG_HOME}/data/plugin ${GRAYLOG_HOME}/data/config ${GRAYLOG_HOME}/data/contentpacks
 COPY --from=graylog-downloader /opt/graylog ${GRAYLOG_HOME}
 COPY config ${GRAYLOG_HOME}/data/config
 
@@ -120,9 +121,7 @@ RUN \
 
 
 COPY docker-entrypoint.sh /
-COPY health_check.sh /
 
-RUN mkdir -p ${GRAYLOG_HOME}/data ${GRAYLOG_HOME}/data/journal ${GRAYLOG_HOME}/data/log ${GRAYLOG_HOME}/data/plugin ${GRAYLOG_HOME}/data/config ${GRAYLOG_HOME}/data/contentpacks
 RUN chown -R ${GRAYLOG_USER}:${GRAYLOG_GROUP} ${GRAYLOG_HOME}/data
 
 EXPOSE 9000
